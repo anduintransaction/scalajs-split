@@ -14,11 +14,14 @@ const toFlat = (prev, pkg) =>
 
 /*********************/
 
-// ../design/core/src/main/scala/anduin/style/Width.scala
+const prefix = "src/main/scala/"
+// get id from path
+// - path is absolute, e.g.
+//   ~/thien/anduin/design/core/src/main/scala/anduin/foo/Foo.scala
 const withId = (pkg) => {
   const id = pkg.path
     .slice(
-      pkg.path.indexOf("anduin/"),
+      pkg.path.indexOf(prefix) + prefix.length,
       pkg.path.lastIndexOf("/")
     )
     .split("/").join(".")
@@ -27,10 +30,11 @@ const withId = (pkg) => {
 
 /*********************/
 
-// \nimport anduin.foo.Foo
-// \nimport anduin.foo._
-// \nimport anduin.foo.Foo._
-// \nimport anduin.foo.Foo.Bar
+// import formats:
+// - \nimport anduin.foo.Foo
+// - \nimport anduin.foo._
+// - \nimport anduin.foo.Foo._
+// - \nimport anduin.foo.Foo.Bar
 const getImports = (src) => {
   const pkgs = []
   const regexp = /\nimport ([a-z\.]+)\./g
@@ -56,15 +60,15 @@ const withImports = (path) => {
  * pkgs like org.scalajs and non-dep pkgs like the main
  * entry
  **/
-const getPkgs = () => {
-  const paths = glob.sync("../design/core/**/*.scala")
+const getPkgs = ({ path }) => {
+  const paths = glob.sync(`${path}/**/*.scala`)
   const pkgs = paths
     .map(withImports)
     .map(withId)
     .reduce(toFlat, [])
     .filter((v, i, a) => a.indexOf(v) === i) // unique
     .filter(noLeaf)
-  return pkgs
+  return { pkgs, paths }
 }
 
 exports.default = getPkgs

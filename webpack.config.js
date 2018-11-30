@@ -1,21 +1,29 @@
-const path = require('path');
+const webpack = require("webpack")
+const TerserPlugin = require("terser-webpack-plugin");
 
-const TerserPlugin = require('terser-webpack-plugin');
+const getOutput = (argv) => ({
+  path: `${argv["x-path"]}/dist`,
+  filename: "./scripts/[name].js",
+  chunkFilename: "./scripts/[name].js",
+  jsonpScriptType: "module"
+})
 
-const inputPath = '/Users/thien/Code/anduin/design/core/' +
-  'target/scala-2.12/scalajs-bundler/main'
+const terser = new TerserPlugin({
+  cache: true,
+  parallel: true
+})
 
-module.exports = {
-  entry: `${inputPath}/modules/anduin.guide.app.main.js`,
-  output: {
-    // filename: '[name].[chunkhash:6].js',
-    // chunkFilename: '[name].[chunkhash:6].js',
-    filename: 'main.js',
-    path: path.resolve(__dirname, '../test')
-  },
-  mode: 'development',
-  optimization: {
-    minimizer: [new TerserPlugin({
-    })]
-  }
-};
+const getConfig = (env, argv) => ({
+  entry: argv["x-entry"],
+  output: getOutput(argv),
+  mode: "production",
+  stats: "errors-only",
+  optimization: { minimizer: [ terser ] },
+  plugins: [
+    new webpack.optimize.MinChunkSizePlugin({
+      minChunkSize: 100 * 1024
+    })
+  ]
+})
+
+exports.default = getConfig

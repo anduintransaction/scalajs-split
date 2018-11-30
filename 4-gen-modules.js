@@ -1,5 +1,3 @@
-/***********/
-
 const getNodeCode = (input) => (node) => {
   const prefix = (node.shouldExport ? "export " : "")
   const body = input.slice(node.range.start, node.range.end + 1)
