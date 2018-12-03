@@ -3,8 +3,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const getOutput = (argv) => ({
   path: `${argv["x-path"]}/scalajs-split`,
-  filename: "./app.js",
-  chunkFilename: "./[name].js",
+  filename: "./scripts/app.js",
+  chunkFilename: "./scripts/[name].js",
   jsonpScriptType: "module"
 })
 
