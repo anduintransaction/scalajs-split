@@ -1,6 +1,6 @@
 {
   "name": "@anduin/scalajs-split",
-  "version": "0.0.1-2",
+  "version": "0.0.1-4",
   "license": "MIT",
   "main": "./src/index.js",
   "bin": {

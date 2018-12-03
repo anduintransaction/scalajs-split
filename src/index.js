@@ -174,7 +174,7 @@ modules = splitResult.modules
 
 /***/ logStart("write modules")
 
-const pathModules = `${pathTarget}/modules`
+const pathModules = `${pathTarget}/scalajs-split-modules`
 fse.ensureDirSync(pathModules)
 modules.forEach(module => {
   fse.writeFileSync(`${pathModules}/${module.id}.js`, module.code)
@@ -204,5 +204,13 @@ runWebpack({ path: pathTarget, nodes, modules })
 
 
 
+
+/*********************************************
+ *
+ * clean
+ *
+ **/
+
+fse.removeSync(pathModules)
 
 /***/ console.timeEnd("total")

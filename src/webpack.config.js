@@ -2,9 +2,9 @@ const webpack = require("webpack")
 const TerserPlugin = require("terser-webpack-plugin");
 
 const getOutput = (argv) => ({
-  path: `${argv["x-path"]}/dist`,
-  filename: "./scripts/[name].js",
-  chunkFilename: "./scripts/[name].js",
+  path: `${argv["x-path"]}/scalajs-split`,
+  filename: "./app.js",
+  chunkFilename: "./[name].js",
   jsonpScriptType: "module"
 })
 

@@ -7,7 +7,7 @@ const getEntry = ({ path, nodes, modules }) => {
     const nodeId = node.id.split("_").join(".")
     return nodeId.includes(module.id)
   })
-  return `${path}/modules/${module.id}.js`
+  return `${path}/scalajs-split-modules/${module.id}.js`
 }
 
 const run = ({ path, nodes, modules }) => execSync(
