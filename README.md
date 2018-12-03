@@ -15,7 +15,7 @@ Improve ScalaJS application loading time by splitting its [monolithic `xxx-opt.j
 ## Installation
 
 ```bash
-yarn add --dev @anduin/scalajs-split@0.0.1-1
+yarn add --dev @anduin/scalajs-split
 ```
 
 ## Usage
